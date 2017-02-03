@@ -1,18 +1,18 @@
 {
     "compileOnSave": true,
     "compilerOptions": {
-        "types" : ["node"],
+        "typeRoots": ["node_modules/@types"],
+        "types": ["node"],
         "module": "commonjs",
         "target": "es6",
         "noImplicitAny": false,
-        "sourceMap": true,
-        "lib": [
-            "es6"
-        ],
-        "moduleResolution": "node",
+        "removeComments": true,
+        "inlineSourceMap": true,
+        "lib": ["es6"],
         "experimentalDecorators": true,
-        "mapRoot": "./temp",
-        "pretty": true
+        "strictNullChecks": true,
+        "pretty": true,
+        "outDir": "./build"
     },
     "exclude": [
         "build/**/*",
@@ -20,7 +20,6 @@
         "scripts/**/*",
         "dist/**/*",
         "node_modules/**/*",
-        "tmp/**/*",
-        "./**/*.spec.ts"
+        "tmp/**/*"
     ]
 }

@@ -1,7 +1,7 @@
 {
-  "name": "typescript-node-template",
+  "name": "type-micro-template",
   "version": "0.0.1",
-  "description": "Template to bootstrap typescript node projects.",
+  "description": "Template to bootstrap typescript server projects.",
   "license": "MIT",
   "readmeFilename": "README.md",
   "author": {
@@ -16,36 +16,30 @@
     "url": ""
   },
   "tags": [
-    "orm",
+    "ts-server",
     "typescript",
     "typescript-template"
   ],
   "devDependencies": {
-    "@types/chai": "^3.4.34",
-    "@types/chai-as-promised": "0.0.29",
-    "@types/mocha": "^2.2.32",
-    "@types/sinon": "^1.16.31",
-    "chai": "^3.5.0",
-    "chai-as-promised": "^6.0.0",
-    "mocha": "^3.1.2",
-    "sinon": "^1.17.6",
-    "sinon-chai": "^2.8.0",
-    "typedoc": "^0.5.1",
-    "typescript": "^2.0.6"
+    "alsatian": "^1.1.0",
+    "typedoc": "^0.5.5",
+    "typescript": "^2.1.5",
+    "watch": "^1.0.1"
   },
-  "dependencies": {
-    "@angular/forms": "^2.1.2",
-    "@types/node": "^6.0.46",
-    "@types/yargs": "^6.3.0",
-    "class-validator": "^0.6.4",
-    "minimist": "^1.2.0",
-    "yargonaut": "^1.1.2"
-  },
+  "dependencies": {},
   "scripts": {
-    "start": "tsc && node src/index.js --a 23 -b",
-    "watch:ts": "tsc -W && node src/index.js",
-    "watch:all": "parallelshell 'npm run watch:ts' 'echo watching all' ",
-    "watch:tslint": "npm run tslint",
-    "tslint": "tslint -c tslint.json src/**/*.ts test/**/*.ts "
+    "start": "node build/src/index.js",
+    "prebuild": "npm run clean:build",
+    "build": "tsc",
+    "prebuild:doc": "npm run clean:doc",
+    "build:doc": "typedoc --out ./doc/ --target ES6 --tsconfig ./tsconfig.json --ignoreCompilerErrors src/",
+    "clean:build": "rimraf build/*",
+    "clean:doc": "rimraf doc/*",
+    "watch": "npm run watch:ts & npm run watch:test",
+    "watch:ts": "tsc -w",
+    "watch:ts-node": "watch './node_modules/.bin/ts-node ./src/index.ts' src --wait=1",
+    "watch:test": "watch 'npm run test -s' build --wait=1",
+    "tslint": "tslint -c tslint.json --force src/**/*.ts",
+    "test": "alsatian ./build/test/**/*.spec.js"
   }
 }
